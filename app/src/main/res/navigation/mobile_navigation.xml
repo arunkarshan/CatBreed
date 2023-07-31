@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/cats">
+
+    <fragment
+        android:id="@+id/cats"
+        android:label="@string/option_breeds"
+        android:name="com.example.codereviewtask_jc51.presentation.ui.breeds.CatBreedsFragment"
+        tools:layout="@layout/cat_breeds_fragment" >
+        <action
+            android:id="@+id/action_from_cats_to_details"
+            app:destination="@id/navigation_cat_info" >
+            <argument
+                android:name="catId"
+                app:argType="integer" />
+        </action>
+    </fragment>
+    
+    <fragment
+        android:id="@+id/navigation_cat_info"
+        android:label="@string/option_breeds"
+        android:name="com.example.codereviewtask_jc51.presentation.ui.details.CatDetailsFragment"
+        tools:layout="@layout/cat_details_fragment" >
+        <argument
+            android:name="catId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:label="@string/option_favorites"
+        android:name="com.example.codereviewtask_jc51.presentation.ui.fav.FavCatBreedsFragment"
+        tools:layout="@layout/fav_cat_breeds_fragment" >
+        <action
+            android:id="@+id/action_from_fav_cats_to_details"
+            app:destination="@id/navigation_cat_info" >
+            <argument
+                android:name="catId"
+                app:argType="integer" />
+        </action>
+    </fragment>
+</navigation>
