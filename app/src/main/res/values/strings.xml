@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Code Review Assignment: JC51</string>
+    <string name="option_breeds">Breeds</string>
+    <string name="option_favorites">Favorites</string>
+    <string name="no_favs">You don\'t have a favorite breed. How come?</string>
+</resources>
