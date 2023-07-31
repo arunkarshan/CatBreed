@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Title" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:textColor">@color/primary_text_color</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
     <style name="PrimaryText" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/primary_text_color</item>
         <item name="android:maxLines">2</item>
@@ -17,5 +11,32 @@
         <item name="android:textColor">@color/primary_text_color</item>
         <item name="android:maxLines">2</item>
         <item name="android:textSize">16sp</item>
+    </style>
+    <style name="TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SubText" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/primary_subtext_color</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="LabelTitleSmall" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/label_title_color</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/rating_yellow</item>
     </style>
 </resources>

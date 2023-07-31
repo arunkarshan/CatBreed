@@ -1,15 +1,12 @@
 package com.example.codereviewtask_jc51.data
 
 import com.example.codereviewtask_jc51.data.remote.CatApi
-import com.example.codereviewtask_jc51.data.remote.dto.CatsResponse
 import com.example.codereviewtask_jc51.domain.model.CatDetails
 import com.example.codereviewtask_jc51.domain.model.CatPreview
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.core.SingleSource
-import io.reactivex.rxjava3.core.SingleTransformer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,7 +40,7 @@ class CatRepository {
 
     fun fetchCats(): Single<List<CatPreview>> {
         return catsService.getCats()
-            .compose(CatPreviewResponseExtractor)
+            .map { it.data }
     }
 
     fun fetchCat(catId: Int): Single<CatDetails> {
@@ -54,11 +51,5 @@ class CatRepository {
     fun fetchCatFact(factId: Int): Single<String> {
         return catsService.getCatFact(factId)
             .map { it.data }
-    }
-}
-
-object CatPreviewResponseExtractor: SingleTransformer<CatsResponse, List<CatPreview>> {
-    override fun apply(upstream: Single<CatsResponse>): SingleSource<List<CatPreview>> {
-        return upstream.map { it.data }
     }
 }

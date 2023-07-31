@@ -2,22 +2,37 @@ package com.example.codereviewtask_jc51.data
 
 import android.content.Context
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
+const val CONST_FAVOURITE_KEY = "favourite-"
 class FavoriteCatSaver(
     private val context: Context
 ) {
+
     private val preferences = context.getSharedPreferences("favorite_cats", Context.MODE_PRIVATE)
 
     fun addFavoriteCat(catId: Int) {
-        preferences.edit().let {
-            it.putInt("id", catId)
-            it.apply()
-        }
+        preferences.edit().apply {
+            putBoolean("$CONST_FAVOURITE_KEY$catId", true)
+        }.apply()
+    }
+    fun removeFavoriteCat(catId: Int) {
+        preferences.edit().apply {
+            remove("$CONST_FAVOURITE_KEY$catId")
+        }.apply()
     }
 
-    fun getFavoriteCat(): Observable<Int> {
+    fun isFavouriteCat(catId: Int): Single<Boolean> {
+        return Single.just(
+            preferences.getBoolean("$CONST_FAVOURITE_KEY$catId", false)
+        )
+    }
+
+    fun getFavoriteCats(): Observable<List<String>> {
         return Observable.just(
-            preferences.getInt("id", 0)
+            preferences.all
+                .filter { it.key.contains(CONST_FAVOURITE_KEY) && it.value == true}
+                .map { it.key.replace(CONST_FAVOURITE_KEY, "") }
         )
     }
 }
