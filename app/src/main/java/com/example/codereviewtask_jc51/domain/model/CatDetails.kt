@@ -8,7 +8,8 @@ data class CatDetails(
     val breedName: String,
     val picture: String,
     val rate: Double,
-    val fun_fact: String,
+    @JsonProperty(value = "fun_fact")
+    val funFact: String,
     val lifespan: String,
     val origin: String
 ) {
@@ -19,7 +20,7 @@ data class CatDetails(
             breedName = "empty",
             picture = "none",
             rate = 0.0,
-            fun_fact = "placeholder",
+            funFact = "placeholder",
             lifespan = "forever",
             origin = "universe"
         )

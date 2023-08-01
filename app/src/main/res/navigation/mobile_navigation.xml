@@ -12,18 +12,22 @@
         tools:layout="@layout/cat_breeds_fragment" >
         <action
             android:id="@+id/action_from_cats_to_details"
-            app:destination="@id/navigation_cat_info" />
+            app:destination="@id/navigation_cat_info" >
+            <argument
+                android:name="catId"
+                app:argType="integer" />
+        </action>
     </fragment>
     
     <fragment
         android:id="@+id/navigation_cat_info"
         android:label="@string/option_breeds"
         android:name="com.example.codereviewtask_jc51.presentation.details.CatDetailsFragment"
-        tools:layout="@layout/fragment_cat_details" >
+        tools:layout="@layout/cat_details_fragment" >
         <argument
-            android:name="userId"
-            app:argType="long"
-            android:defaultValue="0L" />
+            android:name="catId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
@@ -32,7 +36,11 @@
         android:name="com.example.codereviewtask_jc51.presentation.fav.FavCatBreedsFragment"
         tools:layout="@layout/fav_cat_breeds_fragment" >
         <action
-            android:id="@+id/action_from_cats_to_details"
-            app:destination="@id/navigation_cat_info" />
+            android:id="@+id/action_from_fav_cats_to_details"
+            app:destination="@id/navigation_cat_info" >
+            <argument
+                android:name="catId"
+                app:argType="integer" />
+        </action>
     </fragment>
 </navigation>

@@ -10,14 +10,19 @@
         android:id="@+id/swipe_to_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/padding_standard_xsmall"
+        android:paddingTop="@dimen/padding_standard_small"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/catFact">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/breeds"
+            android:id="@+id/breeds_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/card_corner_radius_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,13 +33,16 @@
     <TextView
         android:id="@+id/catFact"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        style="@style/PrimaryText"
-        android:textColor="@color/white"
-        android:layout_marginBottom="50dp"
+        android:layout_height="@dimen/cat_facts_item_height"
+        style="@style/SubText"
+        android:paddingBottom="@dimen/padding_standard_xsmall"
         android:gravity="center"
+        android:textStyle="italic"
+        android:ellipsize="marquee"
+        android:paddingHorizontal="@dimen/padding_standard_medium"
+        android:includeFontPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/primary_color"
+        android:background="@color/primary_color_subdued"
         tools:text="Fun cat fact"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

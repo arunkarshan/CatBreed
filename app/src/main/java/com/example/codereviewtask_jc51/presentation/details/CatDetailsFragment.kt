@@ -4,49 +4,91 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.example.codereviewtask_jc51.ApplicationDependencies
-import com.example.codereviewtask_jc51.databinding.FragmentCatDetailsBinding
+import com.example.codereviewtask_jc51.CatApp
+import com.example.codereviewtask_jc51.R
+import com.example.codereviewtask_jc51.databinding.CatDetailsFragmentBinding
+import com.example.codereviewtask_jc51.domain.model.CatDetails
 
-class CatDetailsFragment: Fragment() {
+class CatDetailsFragment : Fragment() {
 
-    private var viewBinding: FragmentCatDetailsBinding? = null
-    private val viewModel: CatDetailsViewModel by viewModels { object : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return CatDetailsViewModel(ApplicationDependencies.catRepository) as T
-        }
-    } }
+    private val args by navArgs<CatDetailsFragmentArgs>()
+
+    private var _viewBinding: CatDetailsFragmentBinding? = null
+    private val viewBinding: CatDetailsFragmentBinding
+        get() = requireNotNull(_viewBinding)
+
+    private val viewModel: CatDetailsViewModel by viewModels {
+        CatDetailsViewModel.provideFactory(
+            catRepository = (requireActivity().application as CatApp).catRepository,
+            favoriteCatSaver = (requireActivity().application as CatApp).favoriteCatSaver,
+            catId = args.catId,
+            owner = this
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewBinding = FragmentCatDetailsBinding.inflate(inflater)
-
-
-
-        return viewBinding!!.root
+    ): View {
+        _viewBinding = CatDetailsFragmentBinding.inflate(inflater)
+        return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetchCatDetails((arguments?.getLong("catId", 0L) ?: 0L))
         viewModel.details.observe(viewLifecycleOwner) {
-            with(viewBinding!!) {
-                breedName.text = it.breedName
-                breedLifespan.text = it.lifespan
-                breedOrigin.text = it.origin
-                breedRate.text = "${it.rate}/5.0"
-                funFact.text = it.fun_fact
+            /*
+                To improve the user experience, we can adopt various approaches for handling
+                error scenarios, such as API failures or invalid catId. Suggested solutions
+                include showing an error screen, an alert dialog, or a toast to notify the
+                user that an issue has occurred, and they won't be able to view the details.
+                For simplicity, the provided solution demonstrates a toast and navigating back,
+                but it is highly recommended to use an alert dialog or error screen
+                that aligns with the app's theme, providing a more cohesive user experience.
+            */
 
-                Glide.with(catImage).load(it.picture).into(catImage)
+            if (it != CatDetails.EMPTY) {
+                setCatDetailsData(it)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.error_message),
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().navigateUp()
             }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _viewBinding = null
+    }
+    private fun setCatDetailsData(catDetails: CatDetails) {
+        with(viewBinding) {
+            breedName.text = catDetails.breedName
+            breedLifespan.text = catDetails.lifespan
+            breedOrigin.text = catDetails.origin
+            breedRateLabel.text = getString(R.string.cat_rating, catDetails.rate)
+            breedRating.rating = catDetails.rate.toFloat()
+            breedFunFactLabel.text = getString(R.string.breed_funfact_label, catDetails.breedName)
+            funFact.text = catDetails.funFact
+            btnCatDetailFavourite.setOnClickListener{
+                viewModel.changeCatBreedFavouriteStatus(catDetails)
+            }
+            imgCatDetailsFavourite.setImageResource(
+                if(catDetails.favorite) R.drawable.ic_far_heart_selected else R.drawable.ic_far_heart
+            )
+
+            Glide.with(catImage).load(catDetails.picture).into(catImage)
         }
     }
 }

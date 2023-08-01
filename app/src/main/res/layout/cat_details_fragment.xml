@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/catImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_cat_detail_favourite"
+        android:layout_width="@dimen/image_button_size"
+        android:layout_height="@dimen/image_button_size"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="@dimen/card_corner_radius_image_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/catImage"
+        android:layout_marginStart="@dimen/padding_standard_medium"
+        android:layout_marginBottom="@dimen/negative_padding_standard_xlarge">
+        <ImageView
+            android:id="@+id/img_cat_details_favourite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:padding="@dimen/padding_standard_medium_small"
+            android:src="@drawable/ic_far_heart"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/catImage"
+        app:layout_constraintEnd_toEndOf="@id/catImage">
+        <TextView
+            android:id="@+id/breed_rate_label"
+            style="@style/LabelTitleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_standard_small"
+            android:textColor="@color/white"
+            android:includeFontPadding="false"
+            app:layout_constraintEnd_toStartOf="@+id/breed_rating"
+            app:layout_constraintBottom_toBottomOf="@id/breed_rating"
+            app:layout_constraintTop_toTopOf="@id/breed_rating"
+            tools:text="3.8/5.0" />
+        <RatingBar
+            android:id="@+id/breed_rating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/padding_standard_small"
+            android:layout_marginEnd="@dimen/padding_standard_medium"
+            android:max="5"
+            android:theme="@style/RatingBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:rating="3.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/breed_name"
+        style="@style/TitleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/padding_standard_medium"
+        android:layout_marginTop="@dimen/padding_standard_medium"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/catImage"
+        tools:text="Persian cat" />
+
+
+    <TextView
+        android:id="@+id/breed_lifespan_label"
+        style="@style/LabelTitleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_standard_medium"
+        android:layout_marginTop="@dimen/padding_standard_xlarge"
+        android:includeFontPadding="false"
+        android:text="@string/breed_lifespan_label"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/breed_name" />
+
+    <TextView
+        android:id="@+id/breed_lifespan"
+        style="@style/SecondaryText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_standard_medium"
+        android:layout_marginTop="@dimen/padding_standard_xsmall"
+        android:layout_marginEnd="@dimen/padding_standard_xsmall"
+        android:includeFontPadding="false"
+        app:layout_constraintEnd_toStartOf="@+id/breed_origin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/breed_lifespan_label"
+        tools:text="11-15 years" />
+
+    <TextView
+        android:id="@+id/breed_origin_label"
+        style="@style/LabelTitleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_standard_xlarge"
+        android:includeFontPadding="false"
+        android:text="@string/breed_origin_label"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/breed_origin"
+        app:layout_constraintTop_toBottomOf="@id/breed_name" />
+
+    <TextView
+        android:id="@+id/breed_origin"
+        style="@style/SecondaryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_standard_xsmall"
+        android:includeFontPadding="false"
+        android:minWidth="128dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/breed_origin_label"
+        tools:text="UnitedStates" />
+
+    <TextView
+        android:id="@+id/breed_fun_fact_label"
+        style="@style/LabelTitleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_standard_xxlarge"
+        android:layout_marginHorizontal="@dimen/padding_standard_medium"
+        android:includeFontPadding="false"
+        android:text="@string/breed_funfact_label"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/breed_lifespan" />
+
+    <TextView
+        android:id="@+id/funFact"
+        style="@style/SecondaryText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:includeFontPadding="false"
+        android:layout_marginTop="@dimen/padding_standard_small"
+        android:layout_marginHorizontal="@dimen/padding_standard_medium"
+        app:layout_constraintTop_toBottomOf="@id/breed_fun_fact_label"
+        tools:text="Super cool fact about the breed" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

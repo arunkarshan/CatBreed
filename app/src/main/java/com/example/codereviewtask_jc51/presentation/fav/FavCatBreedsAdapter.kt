@@ -11,44 +11,51 @@ import com.example.codereviewtask_jc51.databinding.FavCatBreedItemBinding
 import com.example.codereviewtask_jc51.domain.model.CatPreview
 
 class FavCatBreedsAdapter(
-    private val onClickListener: (CatPreview) -> Unit
-): ListAdapter<CatPreview, FavCatBreedsAdapter.ViewHolder>(CatDiff()) {
+    private val onClickListener: (CatPreview) -> Unit,
+    private val onAddToFavoriteListener: (CatPreview) -> Unit
+) : ListAdapter<CatPreview, FavCatBreedsAdapter.ViewHolder>(CatDiff()) {
 
-    fun setItems(newList: List<CatPreview>) {
-        submitList(newList)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavCatBreedsAdapter.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): FavCatBreedsAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = FavCatBreedItemBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int)  = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(getItem(position))
 
-    inner class ViewHolder(val binding: FavCatBreedItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: FavCatBreedItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CatPreview) {
             Glide.with(binding.root).load(item.picture).into(binding.imageThumb)
-            binding.breedName.text = item.breed_name
-            binding.catContainer.setOnClickListener {
-                onClickListener.invoke(item)
-            }
-            if (item.isFavorite()) {
-                binding.imageFavorite.setImageResource(R.drawable.ic_far_heart_selected)
-            } else {
-                binding.imageFavorite.setImageResource(R.drawable.ic_far_heart)
+            binding.run {
+                breedName.text = item.breedName
+                catContainer.setOnClickListener {
+                    onClickListener.invoke(item)
+                }
+                if (item.favorite) {
+                    imageFavorite.setImageResource(R.drawable.ic_far_heart_selected)
+                } else {
+                    imageFavorite.setImageResource(R.drawable.ic_far_heart)
+                }
+
+                imageFavorite.setOnClickListener {
+                    onAddToFavoriteListener.invoke(item)
+                }
             }
         }
     }
 
-    private fun CatPreview.isFavorite() = this.favorite
 
     private class CatDiff : DiffUtil.ItemCallback<CatPreview>() {
         override fun areItemsTheSame(
             oldItem: CatPreview,
             newItem: CatPreview
         ): Boolean {
-            return oldItem.breed_name == newItem.breed_name
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
