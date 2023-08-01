@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.codereviewtask_jc51.presentation.ui.breeds.CatBreedsViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.breeds.CatBreedsFragment">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_to_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/padding_standard_xsmall"
+            android:paddingTop="@dimen/padding_standard_small"
+            app:refreshing="@{viewModel.isLoading}"
+            app:onRefreshListener="@{()-> viewModel.loadBreeds()}"
+            app:layout_constraintBottom_toTopOf="@id/catFact"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/breeds_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/card_corner_radius_medium"
+                app:items="@{viewModel.breedsList}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:listitem="@layout/cat_breed_item" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/catFact"
+            style="@style/SubText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cat_facts_item_height"
+            android:background="@color/primary_color_subdued"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:text="@{viewModel.catFact}"
+            app:visible="@{viewModel.catFact != null &amp;&amp; !viewModel.catFact.empty}"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/padding_standard_medium"
+            android:paddingBottom="@dimen/padding_standard_xsmall"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Fun cat fact" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

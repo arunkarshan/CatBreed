@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cat_facts_item_height">56dp</dimen>
+    <dimen name="card_corner_radius_medium">8dp</dimen>
+    <dimen name="image_button_size">48dp</dimen>
+    <dimen name="card_corner_radius_image_button">24dp</dimen>
+    <dimen name="padding_standard_xsmall">4dp</dimen>
+    <dimen name="padding_standard_small">8dp</dimen>
+    <dimen name="padding_standard_medium_small">12dp</dimen>
+    <dimen name="padding_standard_medium">16dp</dimen>
+    <dimen name="padding_standard_xlarge">24dp</dimen>
+    <dimen name="padding_standard_xxlarge">32dp</dimen>
+
+    <dimen name="negative_padding_standard_xlarge">-24dp</dimen>
+</resources>
